@@ -5,14 +5,14 @@
 
 namespace utilities {
 template <typename T>
-list<T>::list() : size_(0), max_size_(DEFAULT_SIZE), data_(new T[max_size_]){};
+list<T>::list() : size_(0), max_size_(DEFAULT_SIZE), data_(new T[max_size_]) {}
 
 template <typename T>
 list<T>::list(size_t count, const T &value)
     : size_(count), max_size_(count), data_(new T[count]) {
   for (size_t i = 0; i < size_; i++)
     data_[i] = value;
-};
+}
 
 template <typename T> list<T>::~list() {
   delete[] data_;
@@ -91,15 +91,17 @@ template <typename T> void list<T>::replace(const T &element, size_t n) {
   data_[n] = element;
 }
 
-template <typename T> size_t list<T>::size() { return size_; }
+template <typename T> size_t list<T>::size() const { return size_; }
 
-template <typename T> size_t list<T>::max_size() { return max_size_; }
+template <typename T> size_t list<T>::max_size() const { return max_size_; }
 
-template <typename T> T &list<T>::operator[](size_t n) { return data_[n]; }
+template <typename T> T &list<T>::operator[](size_t n) const {
+  return data_[n];
+}
 
 template <typename T>
 template <typename Cmp>
-T *list<T>::find(const T &element, const Cmp &comparator) {
+T *list<T>::find(const T &element, const Cmp &comparator) const {
   for (size_t i = 0; i < size_; ++i) {
     if (comparator(data_[i], element))
       return data_ + i;
@@ -109,7 +111,7 @@ T *list<T>::find(const T &element, const Cmp &comparator) {
 
 template <typename T>
 template <typename Cmp>
-ssize_t list<T>::index(const T &element, const Cmp &comparator) {
+ssize_t list<T>::index(const T &element, const Cmp &comparator) const {
   for (size_t i = 0; i < size_; ++i) {
     if (comparator(data_[i], element))
       return i;

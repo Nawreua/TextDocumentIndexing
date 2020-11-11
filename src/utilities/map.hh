@@ -11,8 +11,8 @@ public:
 
   bool insert(const Key &key, const T &element);
 
-  T &operator[](const Key &key);
-  bool contains(const Key &key);
+  T &operator[](const Key &key) const;
+  bool contains(const Key &key) const;
 
 private:
   struct bucket {

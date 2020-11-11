@@ -25,18 +25,19 @@ public:
   void replace(const T &element, size_t n);
 
   // Getter
-  size_t size();
-  size_t max_size();
+  size_t size() const;
+  size_t max_size() const;
 
   // Access the element at the nth position
-  T &operator[](size_t n);
+  T &operator[](size_t n) const;
 
   // Find the first matching element
-  template <typename Cmp> T *find(const T &element, const Cmp &comparator);
+  template <typename Cmp>
+  T *find(const T &element, const Cmp &comparator) const;
 
   // Get the index of the first matching element
   template <typename Cmp>
-  ssize_t index(const T &element, const Cmp &comparator);
+  ssize_t index(const T &element, const Cmp &comparator) const;
 
 private:
   // The list in itself
