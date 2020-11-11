@@ -10,10 +10,8 @@ BIN=src/indexer
 
 TESTDIR=tests
 
-OBJ_TESTS=
-
 TESTS_TEMPLATE=${TESTDIR}/tests_list
-TESTS=${TESTS_TEMPLATE}
+TESTS=${TESTS_TEMPLATE} ${TESTDIR}/tests_hash ${TESTDIR}/tests_map
 
 all: ${BIN}
 
@@ -21,11 +19,10 @@ ${BIN}: ${OBJ}
 
 tests: ${TESTS}
 
-${TESTS}: ${OBJ_TESTS}
-
-${OBJ_TESTS}: ${OBJ}
+${TESTDIR}/tests_hash: ${UTIDIR}/hash.o
+${TESTDIR}/tests_map: ${UTIDIR}/hash.o
 
 .PHONY:clean tests
 
 clean:
-	${RM} ${OBJ} ${BIN} ${TESTS} ${OBJ_TESTS}
+	${RM} ${OBJ} ${BIN} ${TESTS}
