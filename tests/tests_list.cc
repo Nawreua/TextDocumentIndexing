@@ -6,18 +6,18 @@ namespace test {
 
 class IntComparator {
 public:
-  bool operator()(int a, int b);
+  bool operator()(int a, int b) const;
 };
 
-bool IntComparator::operator()(int a, int b) { return a == b; }
+bool IntComparator::operator()(int a, int b) const { return a == b; }
 
 void list_initialization() {
   utilities::list<int> l;
   assert(l.size() == 0);
   utilities::list<int> l_long(7, 10);
-  assert(l.size() == 7);
-  assert(l[0] == 10);
-  assert(l[6] == 10);
+  assert(l_long.size() == 7);
+  assert(l_long[0] == 10);
+  assert(l_long[6] == 10);
 }
 
 void list_manipulation() {

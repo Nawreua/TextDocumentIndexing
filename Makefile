@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-std=c++20 -pedantic -Wall -Wextra -Werror -I${UTIDIR} -I${ALGODIR}
+CXXFLAGS=-std=c++20 -pedantic -Wall -Wextra -Werror -I${UTIDIR} -I${ALGODIR} -g
 
 SRCDIR=src
 UTIDIR=${SRCDIR}/utilities
@@ -9,8 +9,11 @@ OBJ=${SRCDIR}/indexer.o ${UTIDIR}/hash.o ${ALGODIR}/core.o
 BIN=src/indexer
 
 TESTDIR=tests
-OBJTESTS=${TESTDIR}/tests_list.o
-TESTS=${TESTDIR}/tests_list
+
+OBJ_TESTS=
+
+TESTS_TEMPLATE=${TESTDIR}/tests_list
+TESTS=${TESTS_TEMPLATE}
 
 all: ${BIN}
 
@@ -18,11 +21,11 @@ ${BIN}: ${OBJ}
 
 tests: ${TESTS}
 
-${TESTS}: ${OBJTESTS}
+${TESTS}: ${OBJ_TESTS}
 
-${OBJTESTS}: ${OBJ}
+${OBJ_TESTS}: ${OBJ}
 
 .PHONY:clean tests
 
 clean:
-	${RM} ${OBJ} ${BIN} ${TESTS} ${OBJTESTS}
+	${RM} ${OBJ} ${BIN} ${TESTS} ${OBJ_TESTS}

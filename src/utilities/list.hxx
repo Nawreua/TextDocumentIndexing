@@ -9,7 +9,7 @@ list<T>::list() : size_(0), max_size_(DEFAULT_SIZE), data_(new T[max_size_]) {}
 
 template <typename T>
 list<T>::list(size_t count, const T &value)
-    : size_(count), max_size_(count), data_(new T[count]) {
+    : size_(count), max_size_(count), data_(new T[max_size_]) {
   for (size_t i = 0; i < size_; i++)
     data_[i] = value;
 }
@@ -22,8 +22,8 @@ template <typename T> list<T>::~list() {
 
 template <typename T>
 list<T>::list(const list &other)
-    : size_(other.size_), max_size_(other.max_size_), data_(new T[size_]) {
-  data_ = mempcpy(data_, other.data_, size_ * sizeof(T));
+    : size_(other.size_), max_size_(other.max_size_), data_(new T[max_size_]) {
+  mempcpy(data_, other.data_, size_ * sizeof(T));
 }
 
 template <typename T>
@@ -40,7 +40,7 @@ template <typename T> list<T> &list<T>::operator=(const list &other) {
 
     size_ = other.size_;
     max_size_ = other.max_size_;
-    data_ = new T[size_];
+    data_ = new T[max_size_];
 
     mempcpy(data_, other.data_, size_ * sizeof(T));
   }
@@ -67,7 +67,7 @@ template <typename T> void list<T>::add(const T &element) {
     max_size_ *= 2;
     T *tmp = new T[max_size_];
     T *old = data_;
-    data_ = mempcpy(tmp, old, size_ * sizeof(T));
+    data_ = static_cast<T *>(mempcpy(tmp, old, size_ * sizeof(T)));
     delete[] old;
   }
   data_[size_++] = element;
@@ -81,7 +81,8 @@ void list<T>::remove(const T &element, const Cmp &comparator) {
     throw std::logic_error("Non existing element");
   size_t pos = in_list - data_;
   if (pos != size_ - 1)
-    in_list = mempcpy(in_list, in_list + 1, (size_ - pos - 1) * sizeof(T));
+    in_list = static_cast<T *>(
+        mempcpy(in_list, in_list + 1, (size_ - pos - 1) * sizeof(T)));
   size_--;
 }
 

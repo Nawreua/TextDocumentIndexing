@@ -1,6 +1,6 @@
 #pragma once
 
-#define DEFAULT_SIZE
+#define DEFAULT_SIZE 5
 
 #include <sys/types.h>
 
