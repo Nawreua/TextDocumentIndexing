@@ -1,4 +1,4 @@
-#include "map.hh"
+#pragma once
 
 #include <stdexcept>
 

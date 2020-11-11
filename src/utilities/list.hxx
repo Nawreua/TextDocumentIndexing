@@ -1,4 +1,4 @@
-#include "list.hh"
+#pragma once
 
 #include <cstring>
 #include <stdexcept>

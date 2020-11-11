@@ -25,3 +25,5 @@ private:
   Eq eq_function_;
 };
 } // namespace utilities
+
+#include "map.hxx"

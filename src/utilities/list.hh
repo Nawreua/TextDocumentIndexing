@@ -46,3 +46,5 @@ private:
   T *data_;
 };
 } // namespace utilities
+
+#include "list.hxx"
