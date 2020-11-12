@@ -23,7 +23,9 @@ template <typename T> list<T>::~list() {
 template <typename T>
 list<T>::list(const list &other)
     : size_(other.size_), max_size_(other.max_size_), data_(new T[max_size_]) {
-  memcpy(data_, other.data_, size_ * sizeof(T));
+  for (size_t i = 0; i < size_; ++i) {
+    data_[i] = other.data_[i];
+  }
 }
 
 template <typename T>
@@ -42,7 +44,9 @@ template <typename T> list<T> &list<T>::operator=(const list &other) {
     max_size_ = other.max_size_;
     data_ = new T[max_size_];
 
-    memcpy(data_, other.data_, size_ * sizeof(T));
+    for (size_t i = 0; i < size_; ++i) {
+      data_[i] = other.data_[i];
+    }
   }
   return *this;
 }
@@ -67,7 +71,9 @@ template <typename T> void list<T>::add(const T &element) {
     max_size_ *= 2;
     T *tmp = new T[max_size_];
     T *old = data_;
-    memcpy(tmp, old, size_ * sizeof(T));
+    for (size_t i = 0; i < size_; ++i) {
+      tmp[i] = old[i];
+    }
     data_ = tmp;
     delete[] old;
   }
@@ -81,6 +87,7 @@ void list<T>::remove(const T &element, const Cmp &comparator) {
   if (in_list == nullptr)
     throw std::logic_error("Non existing element");
   size_t pos = in_list - data_;
+  // Check memmove since copy is non trivial for list<list>
   if (pos != size_ - 1)
     memmove(in_list, in_list + 1, (size_ - pos - 1) * sizeof(T));
   size_--;

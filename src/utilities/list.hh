@@ -7,6 +7,10 @@
 namespace utilities {
 
 // Basic list implementation
+//
+// The implementation used memcpy previously to handle quickly modifications
+// to the inner data list. However, it proved to be in conflict when dealing
+// with list of list and as such, I switched to a simpler version
 template <typename T> class list {
 public:
   list();
