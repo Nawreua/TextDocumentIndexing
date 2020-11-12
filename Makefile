@@ -5,8 +5,8 @@ SRCDIR=src
 UTIDIR=${SRCDIR}/utilities
 ALGODIR=${SRCDIR}/algorithm
 
-OBJ=${SRCDIR}/indexer.o ${UTIDIR}/hash.o ${ALGODIR}/core.o
-BIN=src/indexer
+OBJ=${UTIDIR}/hash.o ${ALGODIR}/core.o
+BIN=${SRCDIR}/indexer
 
 TESTDIR=tests
 
