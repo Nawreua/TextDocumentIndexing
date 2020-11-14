@@ -1,7 +1,5 @@
 #pragma once
 
-#define DEFAULT_SIZE 5
-
 #include <cstring>
 #include <sys/types.h>
 

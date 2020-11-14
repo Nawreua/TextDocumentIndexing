@@ -5,7 +5,9 @@ SRCDIR=src
 UTIDIR=${SRCDIR}/utilities
 ALGODIR=${SRCDIR}/algorithm
 
-OBJ=${UTIDIR}/hash.o ${ALGODIR}/core.o ${UTIDIR}/string.o
+STRING_OBJ=${UTIDIR}/string.o
+
+OBJ=${UTIDIR}/hash.o ${ALGODIR}/core.o
 BIN=${SRCDIR}/indexer
 
 TESTDIR=tests
@@ -20,11 +22,11 @@ ${BIN}: ${OBJ}
 
 tests: ${TESTS}
 
-${TESTDIR}/tests_hash: ${UTIDIR}/hash.o
+${TESTDIR}/tests_hash: ${UTIDIR}/hash.o ${STRING_OBJ}
 ${TESTDIR}/tests_map: ${UTIDIR}/hash.o
 ${TESTDIR}/tests_string: ${UTIDIR}/string.o
 
 .PHONY:clean tests
 
 clean:
-	${RM} ${OBJ} ${BIN} ${TESTS}
+	${RM} ${OBJ} ${BIN} ${TESTS} ${STRING_OBJ}

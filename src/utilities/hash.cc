@@ -2,6 +2,8 @@
 
 #include "string.hh"
 
+#include <string>
+
 namespace utilities {
 // Simple char* hash function
 template <> int hash<const char *>(const char *const &element) {
@@ -26,5 +28,9 @@ template <> int hash<int>(const int &element) {
   res = res * 2057; // res = (res + (res << 3)) + (res << 11);
   res = res ^ (res >> 16);
   return res;
+}
+
+template <> int hash<std::string>(const std::string &element) {
+  return hash(element.c_str());
 }
 } // namespace utilities
