@@ -1,7 +1,5 @@
 #include "hash.hh"
 
-#include "string.hh"
-
 #include <string>
 
 namespace utilities {
@@ -11,11 +9,6 @@ template <> int hash<const char *>(const char *const &element) {
   for (int i = 0; element[i]; ++i)
     res = res * 53 + element[i];
   return res;
-}
-
-// Simple string hash function, basically a call on the underlying char*
-template <> int hash<utilities::string>(const string &element) {
-  return hash(element.c_str());
 }
 
 // Int hash using the 32 bit mix function

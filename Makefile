@@ -22,9 +22,9 @@ ${BIN}: ${OBJ}
 
 tests: ${TESTS}
 
-${TESTDIR}/tests_hash: ${UTIDIR}/hash.o ${STRING_OBJ}
+${TESTDIR}/tests_hash: ${UTIDIR}/hash.o
 ${TESTDIR}/tests_map: ${UTIDIR}/hash.o
-${TESTDIR}/tests_string: ${UTIDIR}/string.o
+${TESTDIR}/tests_string: ${STRING_OBJ}
 
 .PHONY:clean tests
 
