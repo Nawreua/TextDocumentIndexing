@@ -2,25 +2,24 @@
 
 #include "list.hh"
 #include "map.hh"
-#include "string.hh"
 
-#include <cstring>
+#include <string>
 
 namespace algorithm {
 class StringComparator {
 public:
-  bool operator()(const utilities::string &a, const utilities::string &b) const;
+  bool operator()(const std::string &a, const std::string &b) const;
 };
 
 class HashFunction {
 public:
-  int operator()(const utilities::string &str) const;
+  int operator()(const std::string &str) const;
 };
 
-typedef utilities::map<utilities::string, utilities::list<utilities::string>,
-                       HashFunction, StringComparator>
+typedef utilities::map<std::string, utilities::list<std::string>, HashFunction,
+                       StringComparator>
     index;
-void create_index(const utilities::string &path, index &index);
-utilities::list<utilities::string>
-find_references(const utilities::string &word, const index &index);
+void create_index(const std::string &path, index &index);
+utilities::list<std::string> find_references(const std::string &word,
+                                             const index &index);
 } // namespace algorithm
