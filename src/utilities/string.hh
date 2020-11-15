@@ -5,7 +5,10 @@
 
 namespace utilities {
 
-// Basic immutable string implementation
+/**
+ * Basic immutable string implementation, in case std::string was not authorized
+ * @deprecated
+ */
 class string {
 public:
   string();

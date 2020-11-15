@@ -67,14 +67,17 @@ template <typename T> list<T> &list<T>::operator=(list &&other) {
 }
 
 template <typename T> void list<T>::add(const T &element) {
+  // If not enough space is available, we grow the inner array
   if (size_ >= max_size_) {
     max_size_ *= 2;
     T *tmp = new T[max_size_];
     T *old = data_;
+
     for (size_t i = 0; i < size_; ++i) {
       tmp[i] = old[i];
     }
     data_ = tmp;
+
     delete[] old;
   }
   data_[size_++] = element;
@@ -86,11 +89,21 @@ void list<T>::remove(const T &element, const Cmp &comparator) {
   T *in_list = find(element, comparator);
   if (in_list == nullptr)
     throw std::logic_error("Non existing element");
+
   size_t pos = in_list - data_;
-  // Check memmove since copy is non trivial for list<list>
-  if (pos != size_ - 1)
-    memmove(in_list, in_list + 1, (size_ - pos - 1) * sizeof(T));
+  if (pos != size_ - 1) {
+    for (size_t i = 0; i < size_ - pos - 1; ++i) {
+      in_list[i] = in_list[i + 1];
+    }
+    // memmove(in_list, in_list + 1, (size_ - pos - 1) * sizeof(T));
+  }
   size_--;
+
+  /**
+   * We could also shrink the underlying array, based on an heuristic
+   * of the size / max size, however we do not actually need to remove
+   * elements in our case.
+   */
 }
 
 template <typename T> void list<T>::replace(const T &element, size_t n) {

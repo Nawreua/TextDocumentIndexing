@@ -23,6 +23,7 @@ template <> int hash<int>(const int &element) {
   return res;
 }
 
+// String hash function, corresponds to the hash of the underlying char *
 template <> int hash<std::string>(const std::string &element) {
   return hash(element.c_str());
 }
