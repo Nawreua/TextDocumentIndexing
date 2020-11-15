@@ -1,5 +1,7 @@
 CXX=g++
-CXXFLAGS=-std=c++20 -pedantic -Wall -Wextra -Werror -I${UTIDIR} -I${ALGODIR} -g
+CXXFLAGS=-std=c++17 -pedantic -Wall -Wextra -Werror -I${UTIDIR} -I${ALGODIR}
+
+STATICFLAGS=-static-libgcc -static-libstdc++ -static
 
 SRCDIR=src
 UTIDIR=${SRCDIR}/utilities
@@ -18,6 +20,9 @@ TESTS=${TESTS_TEMPLATE} ${TESTDIR}/tests_hash ${TESTDIR}/tests_map \
 
 all: ${BIN}
 
+static: ${OBJ}
+	${CXX} ${CXXFLAGS} ${STATICFLAGS} ${SRCDIR}/indexer.cc -o indexer ${OBJ}
+
 ${BIN}: ${OBJ}
 
 tests: ${TESTS}
@@ -26,7 +31,7 @@ ${TESTDIR}/tests_hash: ${UTIDIR}/hash.o
 ${TESTDIR}/tests_map: ${UTIDIR}/hash.o
 ${TESTDIR}/tests_string: ${STRING_OBJ}
 
-.PHONY:clean tests
+.PHONY:clean tests static
 
 clean:
-	${RM} ${OBJ} ${BIN} ${TESTS} ${STRING_OBJ}
+	${RM} ${OBJ} ${BIN} ${TESTS} ${STRING_OBJ} indexer
